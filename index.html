@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="استمارة قصيرة لتجهيز طلب الخدمة: فيديو، تصميم، إعلان ممول، إدارة صفحات وغيرها.">
+<meta property="og:title" content="استمارة طلب خدمة تسويقية">
+<meta property="og:description" content="املأ تفاصيل طلبك خلال دقائق، ويصل مباشرة إلى فريق العمل.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#13232A">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>استمارة طلب خدمة تسويقية</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@500;700;800&family=Readex+Pro:wght@300;400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow column like a production brief sheet, sticky progress on top, fixed action bar at the thumb. */
+:root{
+  --bg:#F2F4F3; --surface:#FFFFFF; --ink:#13232A; --muted:#5A6B71; --line:#D7DFDE;
+  --accent:#E8A62A; --accent-ink:#1C1404; --soft:#E9EEED; --ring:rgba(232,166,42,.38);
+  --danger:#B42318; --ok:#1E7A4C;
+  --f-display:"Alexandria","Readex Pro","Segoe UI",Tahoma,sans-serif;
+  --f-body:"Readex Pro","Segoe UI",Tahoma,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D161A; --surface:#142127; --ink:#E5ECEB; --muted:#93A4A9; --line:#263840;
+    --accent:#F0B43F; --accent-ink:#1C1404; --soft:#1A2B32; --ring:rgba(240,180,63,.35);
+    --danger:#F4877D; --ok:#62C493; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D161A; --surface:#142127; --ink:#E5ECEB; --muted:#93A4A9; --line:#263840;
+  --accent:#F0B43F; --accent-ink:#1C1404; --soft:#1A2B32; --ring:rgba(240,180,63,.35);
+  --danger:#F4877D; --ok:#62C493; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.gutter{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:640px;margin-inline:auto}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:none;box-shadow:0 0 0 3px var(--ring)}
+
+/* header */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:6;background:var(--bg);border-bottom:1px solid var(--line)}
+.top .wrap{padding-block:14px 12px;display:grid;gap:10px}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-family:var(--f-display);font-weight:800;font-size:18px;line-height:1.3}
+.tag{font-size:13px;color:var(--muted)}
+.prog{display:flex;gap:4px}
+.prog i{flex:1;height:4px;border-radius:2px;background:var(--line)}
+.prog i.done{background:var(--ink)}
+.prog i.now{background:var(--accent)}
+.stepline{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* main */
+main .wrap{padding-block:28px 150px;display:grid;gap:28px}
+.eyebrow{font-size:14px;color:var(--muted);font-weight:500}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(26px,6.4vw,34px);line-height:1.35;margin:0;text-wrap:balance}
+.lead{margin:0;color:var(--muted);font-size:16px;max-width:52ch}
+.head{display:grid;gap:8px}
+
+.fields{display:grid;gap:26px}
+.field{display:grid;gap:8px;min-width:0}
+.label{font-weight:600;font-size:16px;line-height:1.55}
+.req{color:var(--danger);font-weight:500;margin-inline-start:4px}
+.opt{color:var(--muted);font-weight:400;font-size:13px;margin-inline-start:6px}
+.hint{font-size:13.5px;color:var(--muted);margin:0;line-height:1.6}
+.err{font-size:13.5px;color:var(--danger);margin:0}
+input[type=text],input[type=tel],textarea{width:100%;background:var(--surface);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;font-size:16px;line-height:1.6;transition:border-color .15s}
+textarea{min-height:96px;resize:vertical}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:.75}
+input:focus,textarea:focus{border-color:var(--ink);box-shadow:0 0 0 3px var(--ring);outline:none}
+.invalid input,.invalid textarea{border-color:var(--danger)}
+.invalid .chips .chip{border-color:var(--danger)}
+input[type=tel]{direction:ltr;text-align:right;font-variant-numeric:tabular-nums}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 15px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font-size:15px;line-height:1.4;text-align:start;transition:background .15s,border-color .15s,color .15s}
+.chip:hover{border-color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.chip[aria-pressed="true"]::before{content:"";width:12px;height:7px;border-inline-start:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(-45deg);flex:none}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:360px){.cards{grid-template-columns:1fr}}
+.card{display:grid;gap:4px;align-content:start;text-align:start;padding:16px;border-radius:14px;border:1.5px solid var(--line);background:var(--surface);min-height:96px;position:relative}
+.card b{font-family:var(--f-display);font-weight:700;font-size:17px;line-height:1.4}
+.card span{font-size:13.5px;color:var(--muted);line-height:1.55}
+.card[aria-pressed="true"]{border:2px solid var(--ink);padding:15.5px}
+.card[aria-pressed="true"]::after{content:"";position:absolute;inset-inline-end:12px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%231C1404' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+
+.list3{display:grid;gap:8px}
+.list3 .row{display:grid;grid-template-columns:30px 1fr;align-items:center;gap:8px}
+.list3 .n{font-family:var(--f-display);font-weight:700;color:var(--muted);text-align:center}
+
+.key{background:var(--soft);border-radius:14px;padding:16px;gap:10px}
+.key .pill{justify-self:start;font-size:12.5px;font-weight:600;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:2px 10px}
+
+.check{display:grid;grid-template-columns:24px 1fr;gap:12px;align-items:start;padding:14px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);cursor:pointer}
+.check input{width:20px;height:20px;margin:3px 0 0;accent-color:var(--ink)}
+.invalid.check,.invalid .check{border-color:var(--danger)}
+
+/* intro */
+.intro{display:grid;gap:24px}
+.time{justify-self:start;font-size:13.5px;font-weight:500;border:1.5px solid var(--line);border-radius:999px;padding:3px 12px;color:var(--muted)}
+.prep{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:10px}
+.prep h2,.flow h2{font-family:var(--f-display);font-size:17px;font-weight:700;margin:0}
+.prep ul{margin:0;padding-inline-start:20px;display:grid;gap:4px}
+.flow ol{margin:10px 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;counter-reset:s}
+.flow li{counter-increment:s;display:flex;gap:10px;align-items:baseline;font-size:15px}
+.flow li::before{content:counter(s,arabic-indic);font-family:var(--f-display);font-weight:700;color:var(--muted);min-width:14px}
+.resume{display:grid;gap:10px;border:1.5px dashed var(--muted);border-radius:14px;padding:16px}
+.resume p{margin:0}
+.note{font-size:13.5px;color:var(--muted);margin:0}
+
+/* review sheet */
+.sheet{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.sheet-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;padding:16px 18px;border-bottom:1px solid var(--line);background:var(--soft)}
+.code{font-family:var(--f-mono);font-size:14px;direction:ltr}
+.sec{padding:16px 18px;border-bottom:1px solid var(--line);display:grid;gap:10px}
+.sec:last-child{border-bottom:0}
+.sec-h{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sec-h h3{margin:0;font-family:var(--f-display);font-size:16px;font-weight:700}
+.edit{background:none;border:0;color:var(--muted);font-size:14px;text-decoration:underline;text-underline-offset:3px;padding:6px 2px}
+dl{margin:0;display:grid;grid-template-columns:minmax(92px,34%) 1fr;gap:8px 14px}
+dt{color:var(--muted);font-size:14px}
+dd{margin:0;font-size:15px;min-width:0;overflow-wrap:anywhere;white-space:pre-line}
+.empty-sec{font-size:14px;color:var(--muted);margin:0}
+
+.drop{position:relative;display:grid;place-items:center;gap:2px;min-height:86px;padding:16px;border:1.5px dashed var(--muted);border-radius:12px;background:var(--surface);text-align:center;cursor:pointer}
+.drop:hover{border-color:var(--ink)}
+.drop:focus-within{box-shadow:0 0 0 3px var(--ring)}
+.drop b{font-weight:600}
+.drop span{font-size:13px;color:var(--muted)}
+.drop input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.thumbs{display:flex;flex-wrap:wrap;gap:12px}
+.thumb{position:relative;width:84px;display:grid;gap:4px;min-width:0}
+.thumb .img{width:84px;height:84px;border-radius:10px;border:1px solid var(--line);background:var(--soft);display:grid;place-items:center;overflow:hidden;font-size:13px;font-weight:600;color:var(--muted)}
+.thumb .img img{width:100%;height:100%;object-fit:cover}
+.thumb small{font-size:11.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;text-align:right}
+.thumb .x{position:absolute;top:-8px;inset-inline-end:-8px;width:28px;height:28px;border-radius:50%;border:2px solid var(--bg);background:var(--ink);color:var(--bg);font-size:16px;line-height:1;display:grid;place-items:center;padding:0}
+.done{display:grid;gap:20px}
+.seal{width:64px;height:64px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%231C1404' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/34px no-repeat}
+.hp{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;overflow:hidden}
+.btn:disabled{opacity:.7;cursor:progress}
+.send{position:relative;display:grid;gap:12px}
+.send h2{font-family:var(--f-display);font-size:20px;font-weight:800;margin:0}
+.number{font-family:var(--f-mono);direction:ltr;text-align:right;font-size:15px;user-select:all}
+.fallback{width:100%;min-height:180px;font-size:14px}
+
+/* buttons + bar */
+.btn{min-height:50px;border-radius:12px;padding:10px 22px;font-weight:600;font-size:16px;border:1.5px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;text-align:center}
+.primary{background:var(--accent);color:var(--accent-ink)}
+.primary:hover{filter:brightness(.96)}
+.dark{background:var(--ink);color:var(--bg)}
+.ghost{background:transparent;border-color:var(--line);color:var(--ink)}
+.wide{width:100%}
+.linkbtn{background:none;border:0;color:var(--muted);text-decoration:underline;text-underline-offset:3px;font-size:14px;padding:8px 0;justify-self:start}
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:6;background:var(--bg);border-top:1px solid var(--line);padding-top:12px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
+.bar .wrap{display:flex;gap:10px}
+.bar .primary{flex:1}
+
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:14px;z-index:9;transition:opacity .2s}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div dir="rtl" lang="ar">
+  <header class="top gutter">
+    <div class="wrap">
+      <div class="brandrow">
+        <div class="brand" id="brandName"></div>
+        <div class="tag">طلب خدمة</div>
+      </div>
+      <div id="progWrap" hidden>
+        <div class="prog" id="prog"></div>
+        <div class="stepline" id="stepline"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="gutter"><div class="wrap" id="main"></div></main>
+
+  <div class="bar gutter"><div class="wrap" id="bar"></div></div>
+  <div class="toast" id="toast" hidden></div>
+</div>
+
+<script>
+/* ===== إعدادات الوكالة ===== */
+const AGENCY = {
+  name: "اسم الوكالة",
+  whatsapp: "", // رقم واتساب الوكالة بالصيغة الدولية بدون + ، مثال: 9647701234567
+  endpoint: ""  // رابط Google Apps Script بعد النشر (ينتهي بـ /exec)
+};
+/* =========================== */
+
+document.documentElement.dir = "rtl";
+document.documentElement.lang = "ar";
+
+const PRINT = ["بوستر مطبوع","فلاير","رول أب","لوحة إعلانية","بطاقة أعمال"];
+const SERVICES = [
+  {v:"video", t:"فيديو", d:"مقاطع للمنصات والشاشات"},
+  {v:"design", t:"تصميم", d:"منشورات ومطبوعات"},
+  {v:"ads", t:"إعلان ممول", d:"حملات مدفوعة على المنصات"},
+  {v:"pages", t:"إدارة صفحات", d:"خطة ونشر شهري"},
+  {v:"photo", t:"تصوير فوتوغرافي", d:"منتجات ومكان وفريق"},
+  {v:"branding", t:"شعار وهوية", d:"تصميم شعار أو تطويره"}
+];
+
+const STEPS = [
+  {id:"intro"},
+  {id:"org", nav:"الجهة", title:"عرّفنا بجهتكم", lead:"من أنتم، وكيف نتواصل معكم، ومن يوافق على العمل.", fields:[
+    {id:"company", type:"text", req:true, label:"اسم الشركة أو العلامة التجارية", ml:"الجهة"},
+    {id:"sector", type:"text", label:"مجال العمل", ml:"المجال", ph:"مثال: مطعم، معرض إنارة، عيادة أسنان"},
+    {id:"contact", type:"text", req:true, label:"اسم المسؤول عن الطلب", ml:"المسؤول"},
+    {id:"role", type:"text", label:"المنصب", ml:"المنصب"},
+    {id:"phone", type:"tel", req:true, label:"رقم الواتساب", ml:"واتساب", ph:"07xxxxxxxxx"},
+    {id:"approver", type:"single", label:"من يوافق نهائياً على العمل قبل النشر؟", ml:"صاحب الموافقة", options:["أنا","شخص آخر"], hint:"تحديد شخص واحد للموافقة يختصر جولات التعديل."},
+    {id:"approverName", type:"text", label:"اسم صاحب الموافقة ومنصبه", ml:"اسم صاحب الموافقة", showIf:d=>d.approver==="شخص آخر"},
+    {id:"links", type:"textarea", label:"روابط صفحاتكم الحالية", ml:"الروابط", ph:"إنستغرام، فيسبوك، تيك توك، الموقع", auto:true},
+    {id:"address", type:"text", label:"العنوان والفروع", ml:"العنوان"}
+  ]},
+  {id:"product", nav:"المنتج", title:"ماذا نروّج؟", lead:"كلما كان الوصف أوضح، اقتربت الفكرة مما تريدونه.", fields:[
+    {id:"product", type:"text", req:true, label:"المنتج أو الخدمة التي نروّج لها", ml:"المنتج"},
+    {id:"productDesc", type:"textarea", label:"صفه بسطرين: ما هو، وما فائدته للزبون؟", ml:"الوصف"},
+    {id:"priceTier", type:"single", label:"الفئة السعرية", ml:"الفئة السعرية", options:["اقتصادي","متوسط","فاخر"]},
+    {id:"showPrice", type:"single", label:"هل يُذكر السعر في المحتوى؟", ml:"ذكر السعر", options:["نعم","لا","حسب اقتراح الوكالة"]},
+    {id:"price", type:"text", label:"السعر", ml:"السعر", showIf:d=>d.showPrice==="نعم"},
+    {id:"strengths", type:"list3", req:true, label:"أقوى ثلاث نقاط تجعل الزبون يختاركم بدل المنافس", ml:"نقاط القوة", hint:"تكفي نقطة واحدة إذا لم تتوفر ثلاث.", ph:["مثال: توصيل مجاني داخل بغداد","مثال: ضمان لمدة سنتين","مثال: صناعة محلية بسعر أقل"]},
+    {id:"hasOffer", type:"single", label:"هل يوجد عرض أو خصم حالي؟", ml:"عرض حالي", options:["نعم","لا"]},
+    {id:"offer", type:"text", label:"تفاصيل العرض ومدته", ml:"تفاصيل العرض", showIf:d=>d.hasOffer==="نعم"},
+    {id:"competitors", type:"text", label:"أبرز المنافسين", ml:"المنافسون", ph:"اسمان أو ثلاثة"},
+    {id:"productFiles", type:"files", max:6, accept:"image/*", label:"صور المنتج أو المكان", ml:"صور المنتج", sub:"حتى ٦ صور حقيقية", showIf:()=>!!AGENCY.endpoint}
+  ]},
+  {id:"audience", nav:"الجمهور والهدف", title:"لمن نتكلم، وماذا نريد منه؟", lead:"تحديد الزبون والهدف يحدد شكل المحتوى كله.", fields:[
+    {id:"audType", type:"multi", label:"من الزبون المستهدف؟", ml:"الجمهور", options:["مستهلكون أفراد","أصحاب محلات وتجار","شركات ومؤسسات"]},
+    {id:"gender", type:"single", label:"الجنس", ml:"الجنس", options:["رجال","نساء","الجميع"]},
+    {id:"ages", type:"multi", label:"الفئة العمرية", ml:"الأعمار", options:["أقل من ١٨","١٨–٢٤","٢٥–٣٤","٣٥–٤٤","٤٥ فأكثر"]},
+    {id:"area", type:"text", label:"المنطقة أو المحافظة المستهدفة", ml:"المنطقة"},
+    {id:"need", type:"textarea", label:"ما المشكلة أو الرغبة التي يلبّيها منتجكم عند الزبون؟", ml:"حاجة الزبون"},
+    {id:"objection", type:"text", label:"ما أكثر اعتراض تسمعونه من الزبائن؟", ml:"الاعتراض الشائع", ph:"مثال: السعر مرتفع، التوصيل يتأخر"},
+    {id:"goal", type:"single", req:true, label:"ما الهدف الرئيسي من العمل؟", ml:"الهدف", hint:"اختر هدفاً واحداً، فتعدد الأهداف يضعف الرسالة.", options:["زيادة المبيعات","رسائل واستفسارات","زيارات للمحل","التعريف بالعلامة","إطلاق منتج جديد","زيادة المتابعين"]},
+    {id:"cta", type:"multi", label:"ما الذي نطلبه من المشاهد في النهاية؟", ml:"الإجراء المطلوب", options:["الاتصال هاتفياً","مراسلتنا على واتساب","زيارة المحل","الطلب من الموقع أو التطبيق","مراسلة الصفحة"]},
+    {id:"contactShown", type:"textarea", label:"الرقم أو العنوان أو الرابط الذي يظهر في المحتوى", ml:"بيانات تظهر في المحتوى", auto:true}
+  ]},
+  {id:"brand", nav:"الهوية", title:"كيف تبدو علامتكم وكيف تتكلم؟", lead:"حتى يخرج العمل بشكلكم أنتم، لا بشكل عام.", fields:[
+    {id:"hasLogo", type:"single", label:"هل لديكم شعار؟", ml:"الشعار", options:["نعم","لا يوجد شعار"], hint: AGENCY.endpoint ? "" : "أرسل الشعار في محادثة واتساب بعد إرسال الطلب، ويُفضّل بخلفية شفافة."},
+    {id:"logoFiles", type:"files", max:2, keepAlpha:true, accept:"image/*,application/pdf", label:"ارفع الشعار", ml:"ملف الشعار", sub:"يُفضّل PNG بخلفية شفافة، أو PDF", showIf:d=>!!AGENCY.endpoint && d.hasLogo==="نعم"},
+    {id:"hasGuide", type:"single", label:"هل لديكم دليل هوية بصرية؟", ml:"دليل الهوية", options:["نعم","لا"]},
+    {id:"colors", type:"text", label:"الألوان المعتمدة", ml:"الألوان", ph:"مثال: أخضر داكن وأبيض"},
+    {id:"tone", type:"multi", max:2, label:"نبرة الكلام", ml:"النبرة", hint:"اختر واحدة أو اثنتين.", options:["رسمية","لهجة عراقية قريبة","شبابية وحيوية","فكاهية","فاخرة وهادئة"]},
+    {id:"forbidden", type:"textarea", label:"أشياء لا تريدونها في المحتوى", ml:"الممنوعات", ph:"كلمات، ألوان، ظهور وجوه، موسيقى، ذكر منافسين"},
+    {id:"likes", type:"textarea", label:"روابط لمحتوى يعجبكم", ml:"محتوى يعجبهم", auto:true},
+    {id:"dislikes", type:"textarea", label:"محتوى لا تريدون أن يشبهه عملكم", ml:"محتوى لا يريدونه", auto:true}
+  ]},
+  {id:"services", nav:"الخدمات", title:"ما الخدمات التي تحتاجونها؟", lead:"اختر ما يلزم، وستظهر أسئلة كل خدمة في الخطوات التالية.", fields:[
+    {id:"services", type:"cards", req:true, label:"الخدمات المطلوبة", ml:"الخدمات", hideLabel:true, options:SERVICES}
+  ]},
+  {id:"video", service:"video", nav:"الفيديو", title:"تفاصيل الفيديو", lead:"هذه الإجابات هي أساس كتابة الفكرة والسيناريو.", fields:[
+    {id:"vPlatforms", type:"multi", label:"أين سيُعرض الفيديو؟", ml:"المنصات", hint:"المنصة تحدد مقاس الفيديو.", options:["إنستغرام","تيك توك","فيسبوك","يوتيوب","شاشات داخل المحل","تلفزيون"]},
+    {id:"vDuration", type:"single", label:"المدة", ml:"المدة", options:["أقل من ١٥ ثانية","١٥–٣٠ ثانية","٣٠–٦٠ ثانية","أكثر من دقيقة"]},
+    {id:"vStyle", type:"multi", label:"أسلوب الفيديو", ml:"الأسلوب", options:["تصوير حقيقي","ذكاء اصطناعي بشكل واقعي","رسوم كرتونية","رسوم توضيحية متحركة","زبون يتكلم عن تجربته","ترند رائج","تقترحه الوكالة"]},
+    {id:"vVoice", type:"single", label:"الصوت", ml:"الصوت", options:["تعليق صوتي","نص على الشاشة فقط","موسيقى فقط","تقترحه الوكالة"]},
+    {id:"vVoiceGender", type:"single", label:"صوت التعليق", ml:"صوت التعليق", options:["صوت رجل","صوت امرأة","لا فرق"], showIf:d=>d.vVoice==="تعليق صوتي"},
+    {id:"vDialect", type:"text", label:"لهجة التعليق", ml:"اللهجة", ph:"مثال: بغدادية، فصحى", showIf:d=>d.vVoice==="تعليق صوتي"},
+    {id:"vPeople", type:"single", label:"من يظهر في الفيديو؟", ml:"من يظهر", options:["صاحب العمل","موظف لديكم","ممثل أو مؤثر توفره الوكالة","بدون ظهور أشخاص"]},
+    {id:"vIdea", type:"single", label:"الفكرة", ml:"الفكرة", options:["لدينا فكرة جاهزة","نريد اقتراح الوكالة"]},
+    {id:"vIdeaText", type:"textarea", label:"اشرح فكرتكم", ml:"فكرة العميل", showIf:d=>d.vIdea==="لدينا فكرة جاهزة"},
+    {id:"vOneThing", type:"textarea", req:true, key:true, label:"إذا تذكّر المشاهد شيئاً واحداً فقط من الفيديو، ماذا تريده أن يكون؟", ml:"الرسالة الأساسية", hint:"هذه أهم إجابة في الطلب، وعليها نبني الفكرة."},
+    {id:"vLocation", type:"single", label:"هل يوجد مكان للتصوير؟", ml:"مكان التصوير", options:["نعم، المكان متاح","لا يوجد مكان","لا نحتاج تصويراً"]},
+    {id:"vLocationText", type:"text", label:"العنوان والأوقات المتاحة للتصوير", ml:"تفاصيل المكان", showIf:d=>d.vLocation==="نعم، المكان متاح"},
+    {id:"vCount", type:"single", label:"عدد الفيديوهات", ml:"العدد", options:["فيديو واحد","٢–٣","٤–٨","أكثر من ٨"]},
+    {id:"vEnd", type:"multi", label:"ماذا يظهر في نهاية الفيديو؟", ml:"لقطة الختام", options:["الشعار","رقم الهاتف","العنوان","السعر","العرض"]},
+    {id:"vRefs", type:"textarea", label:"روابط فيديوهات يعجبكم أسلوبها", ml:"مراجع", auto:true}
+  ]},
+  {id:"design", service:"design", nav:"التصميم", title:"تفاصيل التصميم", fields:[
+    {id:"dTypes", type:"multi", label:"نوع التصاميم", ml:"الأنواع", options:["منشور مربع","منشور طولي","ستوري","منشور متعدد الصور"].concat(PRINT)},
+    {id:"dPrint", type:"text", label:"مقاس المطبوعات وكميتها", ml:"المطبوعات", ph:"مثال: رول أب ٨٥×٢٠٠ سم، عدد ٢", showIf:d=>(d.dTypes||[]).some(x=>PRINT.includes(x))},
+    {id:"dText", type:"single", label:"النصوص", ml:"النصوص", options:["النص جاهز وسنرسله","تكتبه الوكالة"]},
+    {id:"dPhotos", type:"single", label:"الصور", ml:"الصور", options:["لدينا صور حقيقية","نحتاج تصويراً","تصميم بدون صور"]},
+    {id:"dCount", type:"single", label:"العدد المطلوب", ml:"العدد", options:["١–٣","٤–١٠","١١–٣٠ شهرياً","أكثر من ٣٠ شهرياً"]}
+  ]},
+  {id:"ads", service:"ads", nav:"الإعلان الممول", title:"تفاصيل الإعلان الممول", fields:[
+    {id:"aBudget", type:"single", label:"ميزانية الإعلان على المنصات (بالدينار العراقي)", ml:"ميزانية الإعلان", hint:"هذا مبلغ الإعلان نفسه، وهو منفصل عن أجور الوكالة.", options:["أقل من ٢٥٠ ألف","٢٥٠–٥٠٠ ألف","٥٠٠ ألف – مليون","أكثر من مليون"]},
+    {id:"aDuration", type:"single", label:"مدة الحملة", ml:"المدة", options:["أسبوع","أسبوعان","شهر","مستمرة"]},
+    {id:"aPlatforms", type:"multi", label:"المنصات", ml:"المنصات", options:["فيسبوك وإنستغرام","تيك توك","سناب شات","يوتيوب"]},
+    {id:"aArea", type:"text", label:"المحافظات أو المناطق المستهدفة", ml:"المناطق"},
+    {id:"aGoal", type:"single", label:"هدف الإعلان", ml:"هدف الإعلان", options:["رسائل واستفسارات","مبيعات من الموقع","زيارات للمحل","مشاهدات ووصول"]},
+    {id:"aAccount", type:"single", label:"هل لديكم حساب إعلاني؟", ml:"الحساب الإعلاني", hint:"نطلب صلاحية الوصول عبر مدير الأعمال، ولا نطلب كلمات المرور أبداً.", options:["نعم","لا","لا أعرف"]}
+  ]},
+  {id:"pages", service:"pages", nav:"إدارة الصفحات", title:"تفاصيل إدارة الصفحات", fields:[
+    {id:"pPlatforms", type:"multi", label:"الصفحات المطلوب إدارتها", ml:"المنصات", options:["إنستغرام","فيسبوك","تيك توك","سناب شات","يوتيوب"]},
+    {id:"pState", type:"single", label:"وضع الصفحات الحالي", ml:"الوضع الحالي", options:["الصفحات جديدة","فعّالة ونريد تطويرها"]},
+    {id:"pPerWeek", type:"single", label:"عدد المنشورات أسبوعياً", ml:"المنشورات أسبوعياً", options:["٣ منشورات","٥ منشورات","منشور يومياً","أكثر"]},
+    {id:"pReplies", type:"single", label:"الرد على الجمهور", ml:"الردود", options:["الوكالة ترد على التعليقات والرسائل","التعليقات فقط","نحن نرد"]},
+    {id:"pSeasons", type:"text", label:"مواسم ومناسبات مهمة لنشاطكم", ml:"المواسم", ph:"مثال: رمضان، العودة للمدارس، الشتاء"}
+  ]},
+  {id:"photo", service:"photo", nav:"التصوير", title:"تفاصيل التصوير الفوتوغرافي", fields:[
+    {id:"phSubject", type:"multi", label:"ماذا نصوّر؟", ml:"موضوع التصوير", options:["المنتجات","المكان من الداخل والخارج","فريق العمل","أطباق وأطعمة","فعالية"]},
+    {id:"phCount", type:"single", label:"العدد التقريبي", ml:"العدد", options:["حتى ٢٠ صورة","٢٠–٥٠ صورة","أكثر من ٥٠"]},
+    {id:"phPlace", type:"single", label:"مكان التصوير", ml:"المكان", options:["في موقعكم","في استوديو الوكالة","لا فرق"]},
+    {id:"phDate", type:"text", label:"الأيام والأوقات المناسبة", ml:"المواعيد"}
+  ]},
+  {id:"branding", service:"branding", nav:"الشعار والهوية", title:"تفاصيل الشعار والهوية", fields:[
+    {id:"bNeed", type:"single", label:"ما المطلوب؟", ml:"المطلوب", hint:"الهوية الكاملة تشمل الشعار والألوان والخطوط وتصاميم المطبوعات.", options:["شعار جديد","تطوير شعار حالي","هوية كاملة"]},
+    {id:"bStory", type:"textarea", label:"ما معنى الاسم أو القصة وراءه؟", ml:"قصة الاسم"},
+    {id:"bStyle", type:"multi", label:"الطابع المطلوب", ml:"الطابع", options:["بسيط وحديث","فاخر","تقليدي وأصيل","مرح وملوّن"]},
+    {id:"bLang", type:"single", label:"لغة الشعار", ml:"اللغة", options:["عربي","إنكليزي","عربي وإنكليزي"]},
+    {id:"bExamples", type:"textarea", label:"شعارات تعجبكم", ml:"أمثلة", ph:"روابط أو أسماء علامات", auto:true}
+  ]},
+  {id:"time", nav:"التوقيت والميزانية", title:"التوقيت والميزانية", lead:"آخر خطوة قبل مراجعة الطلب.", fields:[
+    {id:"when", type:"single", label:"متى تحتاجون التسليم؟", ml:"التسليم", options:["خلال أسبوع","خلال أسبوعين","خلال شهر","الموعد مرن"]},
+    {id:"occasion", type:"text", label:"هل العمل مرتبط بمناسبة أو تاريخ محدد؟", ml:"المناسبة", ph:"مثال: افتتاح فرع يوم ١٥ تشرين الثاني"},
+    {id:"budget", type:"single", label:"الميزانية التقريبية لأعمال الوكالة (بالدينار العراقي)", ml:"الميزانية", hint:"تساعدنا على اقتراح ما يناسبكم من البداية.", options:["أقل من ٥٠٠ ألف","٥٠٠ ألف – مليون","١–٣ مليون","٣–٥ مليون","أكثر من ٥ مليون","نريد عرض سعر"]},
+    {id:"notes", type:"textarea", label:"ملاحظات إضافية", ml:"ملاحظات"},
+    {id:"consent", type:"check", req:true, label:"أقرّ بأن المعلومات صحيحة، وأن الصور والمواد التي سأرسلها مملوكة لنا أو لدينا حق استخدامها.", ml:"الإقرار"}
+  ]},
+  {id:"review", nav:"المراجعة"}
+];
+
+const KEY = "client-brief-v1";
+let state = {data:{}, step:"intro", code:null};
+let errors = {};
+let storageOK = false;
+
+const AR = "٠١٢٣٤٥٦٧٨٩";
+const toAr = n => String(n).replace(/\d/g, d => AR[d]);
+const toLatin = s => String(s||"").replace(/[٠-٩]/g, c => AR.indexOf(c)).replace(/[۰-۹]/g, c => "۰۱۲۳۴۵۶۷۸۹".indexOf(c));
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $ = s => document.querySelector(s);
+
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+function loadSaved(){ try{ const r = localStorage.getItem(KEY); return r ? JSON.parse(r) : null; }catch(e){ return null; } }
+function hasDraft(s){ return !!(s && s.data && Object.keys(s.data).some(k => { const v=s.data[k]; return Array.isArray(v) ? v.some(x=>x) : !!v; })); }
+
+function visibleSteps(){ const sv = state.data.services || []; return STEPS.filter(s => !s.service || sv.includes(s.service)); }
+function formSteps(){ return visibleSteps().filter(s => s.fields); }
+function shown(f){ return !f.showIf || f.showIf(state.data); }
+
+/* ---------- files (held in memory, never in the draft) ---------- */
+const fileStore = {};
+const busy = {};
+const MAX_TOTAL = 24*1024*1024;
+function clearFiles(){ Object.values(fileStore).flat().forEach(x => { if (x.preview) URL.revokeObjectURL(x.preview); }); for (const k in fileStore) delete fileStore[k]; }
+function totalBytes(){ return Object.values(fileStore).flat().reduce((a,x)=>a+x.size,0); }
+function blobToB64(blob){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(String(r.result).split(",")[1]); r.onerror=rej; r.readAsDataURL(blob); }); }
+async function prepareFile(file, keepAlpha){
+  let blob = file, name = file.name || "file", mime = file.type || "application/octet-stream";
+  if (/^image\/(jpeg|png|webp)$/.test(mime) && file.size > 900*1024){
+    const url = URL.createObjectURL(file);
+    try{
+      const img = await new Promise((res,rej)=>{ const i=new Image(); i.onload=()=>res(i); i.onerror=rej; i.src=url; });
+      const sc = Math.min(1, 1800/Math.max(img.naturalWidth, img.naturalHeight));
+      const c = document.createElement("canvas");
+      c.width = Math.round(img.naturalWidth*sc); c.height = Math.round(img.naturalHeight*sc);
+      const ctx = c.getContext("2d");
+      const outType = keepAlpha && mime==="image/png" ? "image/png" : "image/jpeg";
+      if (outType==="image/jpeg"){ ctx.fillStyle = "#ffffff"; ctx.fillRect(0,0,c.width,c.height); }
+      ctx.drawImage(img,0,0,c.width,c.height);
+      const out = await new Promise(res=>c.toBlob(res, outType, 0.84));
+      if (out && out.size < file.size){ blob = out; mime = outType; if (outType==="image/jpeg") name = name.replace(/\.(png|webp|jpe?g)$/i,"") + ".jpg"; }
+    } finally { URL.revokeObjectURL(url); }
+  }
+  const b64 = await blobToB64(blob);
+  return {name, mime, size:blob.size, b64, preview: /^image\//.test(mime) ? URL.createObjectURL(blob) : ""};
+}
+async function addFiles(f, files){
+  busy[f.id] = true; render(true);
+  const list = fileStore[f.id] || (fileStore[f.id] = []);
+  for (const file of files){
+    if (list.length >= f.max){ toast(`الحد الأقصى ${toAr(f.max)} ملفات`); break; }
+    const ok = /^image\//.test(file.type) || (file.type==="application/pdf" && /pdf/.test(f.accept));
+    if (!ok){ toast("نوع الملف غير مقبول"); continue; }
+    if (file.size > 20*1024*1024){ toast("حجم الملف أكبر من ٢٠ ميغابايت"); continue; }
+    try{
+      const item = await prepareFile(file, f.keepAlpha);
+      if (totalBytes() + item.size > MAX_TOTAL){ if (item.preview) URL.revokeObjectURL(item.preview); toast("مجموع الملفات كبير، احذف بعضها"); continue; }
+      list.push(item);
+    }catch(e){ toast("تعذّرت قراءة الملف"); }
+  }
+  busy[f.id] = false; delete errors[f.id]; render(true);
+}
+
+function filled(f, v){
+  if (f.type==="files") return (fileStore[f.id]||[]).length>0;
+  if (f.type==="multi" || f.type==="cards") return Array.isArray(v) && v.length>0;
+  if (f.type==="list3") return Array.isArray(v) && v.some(x => x && x.trim());
+  if (f.type==="check") return v===true;
+  if (f.type==="tel") return toLatin(v).replace(/\D/g,"").length >= 10;
+  return typeof v==="string" && v.trim().length>0;
+}
+function display(f, v){
+  if (f.type==="files"){ const n = (fileStore[f.id]||[]).length; return `${toAr(n)} ${n>=3&&n<=10 ? "ملفات" : "ملف"}`; }
+  if (f.type==="cards") return v.map(x => (SERVICES.find(s=>s.v===x)||{}).t || x).join("، ");
+  if (f.type==="multi") return v.join("، ");
+  if (f.type==="list3") return v.filter(x=>x&&x.trim()).map(x=>x.trim()).join("، ");
+  if (f.type==="check") return "نعم";
+  return String(v).trim();
+}
+
+/* ---------- rendering ---------- */
+function fieldHTML(f){
+  const v = state.data[f.id];
+  const inv = errors[f.id] ? " invalid" : "";
+  const reqMark = f.req ? '<span class="req" aria-hidden="true">*</span>' : '';
+  const lid = "l_"+f.id;
+  const label = f.hideLabel ? "" : `<div class="label" id="${lid}">${esc(f.label)}${reqMark}</div>`;
+  const hint = f.hint ? `<p class="hint">${esc(f.hint)}</p>` : "";
+  const err = errors[f.id] ? `<p class="err" role="alert">${esc(errors[f.id])}</p>` : "";
+  let control = "";
+  if (f.type==="text" || f.type==="tel"){
+    control = `<input id="f_${f.id}" data-f="${f.id}" type="${f.type}" ${f.type==="tel"?'inputmode="tel" autocomplete="tel"':''} value="${esc(v||"")}" placeholder="${esc(f.ph||"")}" aria-labelledby="${lid}">`;
+  } else if (f.type==="textarea"){
+    control = `<textarea id="f_${f.id}" data-f="${f.id}" ${f.auto?'dir="auto"':''} placeholder="${esc(f.ph||"")}" aria-labelledby="${lid}">${esc(v||"")}</textarea>`;
+  } else if (f.type==="single" || f.type==="multi"){
+    const sel = f.type==="single" ? [v] : (v||[]);
+    control = `<div class="chips" role="group" aria-labelledby="${lid}">` + f.options.map(o =>
+      `<button type="button" class="chip" data-chip="${f.id}" data-v="${esc(o)}" aria-pressed="${sel.includes(o)}">${esc(o)}</button>`).join("") + `</div>`;
+  } else if (f.type==="cards"){
+    const sel = v||[];
+    control = `<div class="cards" role="group" aria-label="${esc(f.label)}">` + f.options.map(o =>
+      `<button type="button" class="card" data-card="${f.id}" data-v="${o.v}" aria-pressed="${sel.includes(o.v)}"><b>${esc(o.t)}</b><span>${esc(o.d)}</span></button>`).join("") + `</div>`;
+  } else if (f.type==="list3"){
+    const arr = v || ["","",""];
+    control = `<div class="list3" role="group" aria-labelledby="${lid}">` + [0,1,2].map(i =>
+      `<div class="row"><span class="n" aria-hidden="true">${toAr(i+1)}</span><input id="f_${f.id}_${i}" type="text" data-f="${f.id}" data-i="${i}" value="${esc(arr[i]||"")}" placeholder="${esc((f.ph||[])[i]||"")}" aria-label="نقطة ${toAr(i+1)}"></div>`).join("") + `</div>`;
+  } else if (f.type==="files"){
+    const list = fileStore[f.id] || [];
+    control = (list.length ? `<div class="thumbs">${list.map((x,k)=>`<div class="thumb"><div class="img">${x.preview ? `<img src="${x.preview}" alt="">` : "PDF"}</div><small>${esc(x.name)}</small><button type="button" class="x" data-rmfile="${f.id}" data-k="${k}" aria-label="حذف ${esc(x.name)}">×</button></div>`).join("")}</div>` : "") +
+      (list.length >= f.max ? "" : `<label class="drop" for="f_${f.id}"><b>${list.length ? "إضافة ملف آخر" : "اختيار ملف"}</b><span>${esc(f.sub||"")}</span><input id="f_${f.id}" type="file" data-file="${f.id}" accept="${f.accept}" ${f.max>1?"multiple":""}></label>`) +
+      (busy[f.id] ? `<p class="hint">جارٍ تجهيز الملفات…</p>` : "");
+  } else if (f.type==="check"){
+    return `<div class="field${inv}" data-wrap="${f.id}"><label class="check" for="f_${f.id}"><input id="f_${f.id}" type="checkbox" data-check="${f.id}" ${v===true?"checked":""}><span>${esc(f.label)}${reqMark}</span></label>${err}</div>`;
+  }
+  return `<div class="field${f.key?" key":""}${inv}" data-wrap="${f.id}">${f.key?'<span class="pill">الأهم</span>':''}${label}${hint}${control}${err}</div>`;
+}
+
+function introHTML(){
+  const saved = loadSaved();
+  const draft = hasDraft(saved) && saved.step !== "intro";
+  const stepsList = ["الجهة","المنتج","الجمهور والهدف","الهوية","الخدمات","تفاصيل كل خدمة","التوقيت والميزانية","المراجعة والإرسال"];
+  return `<div class="intro">
+    <div class="head">
+      <span class="time">من ٨ إلى ١٠ دقائق</span>
+      <h1>لنبدأ عملكم بالمعلومات الصحيحة</h1>
+      <p class="lead">هذه الاستمارة تجمع كل ما نحتاجه لنبدأ العمل من دون اتصالات متكررة. أجب عمّا تعرفه، واترك الباقي لنا.</p>
+    </div>
+    ${draft ? `<div class="resume"><p><b>لديك طلب لم يكتمل.</b> يمكنك المتابعة من حيث توقفت.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn dark" data-act="resume">متابعة الطلب</button><button class="btn ghost" data-act="fresh">بدء طلب جديد</button></div></div>` : ""}
+    <section class="prep">
+      <h2>جهّز قبل البدء</h2>
+      <ul>
+        <li>الشعار، ويُفضّل بخلفية شفافة</li>
+        <li>صور حقيقية للمنتج أو المكان</li>
+        <li>روابط صفحاتكم، وروابط لمحتوى يعجبكم</li>
+      </ul>
+      <p class="note">${AGENCY.endpoint ? "ترفع الشعار والصور داخل الاستمارة." : "ترسل هذه الملفات في محادثة واتساب بعد إرسال الطلب."}</p>
+    </section>
+    <section class="flow">
+      <h2>خطوات الطلب</h2>
+      <ol>${stepsList.map(s=>`<li>${s}</li>`).join("")}</ol>
+    </section>
+    ${storageOK ? `<p class="note">تُحفظ إجاباتك على هذا الجهاز أثناء التعبئة، فلا تضيع إذا أغلقت الصفحة.</p>` : ""}
+  </div>`;
+}
+
+function collect(forMessage){
+  return formSteps().map(s => ({
+    step:s,
+    rows: s.fields.filter(f => shown(f) && f.type!=="check" && !(forMessage && f.type==="files") && filled(f, state.data[f.id])).map(f => ({ml:f.ml, val:display(f, state.data[f.id])}))
+  }));
+}
+function payload(){
+  const d = state.data;
+  const val = id => { const f = findField(id); return f && filled(f, d[id]) ? display(f, d[id]) : ""; };
+  return {
+    code: state.code,
+    website: ($("#hp") || {}).value || "",
+    summary: {company:val("company"), contact:val("contact"), phone:toLatin(d.phone||"").replace(/[^\d+]/g,""), services:val("services"), goal:val("goal"), budget:val("budget"), when:val("when")},
+    sections: collect(false).filter(s=>s.rows.length).map(s => ({title:s.step.nav, rows:s.rows.map(r => ({label:r.ml, value:r.val}))})),
+    message: buildMessage(),
+    files: Object.keys(fileStore).flatMap(k => { const f = findField(k); return f && shown(f) ? fileStore[k].map(x => ({name:(k==="logoFiles"?"شعار - ":"")+x.name, mime:x.mime, b64:x.b64})) : []; })
+  };
+}
+async function submitRequest(btn){
+  const err = $("#submitErr"); err.hidden = true;
+  const nFiles = Object.values(fileStore).flat().length;
+  btn.disabled = true; btn.textContent = nFiles ? "جارٍ إرسال الطلب والملفات…" : "جارٍ الإرسال…";
+  const ctrl = new AbortController(); const t = setTimeout(()=>ctrl.abort(), 120000);
+  try{
+    const res = await fetch(AGENCY.endpoint, {method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"}, body:JSON.stringify(payload()), signal:ctrl.signal});
+    const out = await res.json();
+    if (!out || !out.ok) throw new Error((out && out.error) || "failed");
+    const code = state.code;
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    clearFiles(); errors = {};
+    state = {data:{}, step:"done", code};
+    render(); window.scrollTo(0,0);
+  }catch(e){
+    err.textContent = "تعذّر إرسال الطلب. تأكد من الاتصال بالإنترنت ثم أعد المحاولة، أو أرسله عبر واتساب.";
+    err.hidden = false; $("#fallbackBox").hidden = false;
+    btn.disabled = false; btn.textContent = "إعادة المحاولة";
+  } finally { clearTimeout(t); }
+}
+function dateStr(){ try{ return new Intl.DateTimeFormat("ar-IQ",{dateStyle:"long"}).format(new Date()); }catch(e){ return new Date().toLocaleDateString(); } }
+
+function buildMessage(){
+  const L = [];
+  L.push(`*طلب خدمة جديد${AGENCY.name && AGENCY.name!=="اسم الوكالة" ? " — "+AGENCY.name : ""}*`);
+  L.push(`رقم الطلب: ${state.code}`);
+  L.push(`التاريخ: ${dateStr()}`);
+  collect(true).forEach(sec => {
+    if (!sec.rows.length) return;
+    L.push(""); L.push(`*${sec.step.nav}*`);
+    sec.rows.forEach(r => L.push(`• ${r.ml}: ${r.val}`));
+  });
+  L.push("");
+  if (state.data.consent) L.push("أقرّ العميل بصحة المعلومات وبحق استخدام المواد المرسلة.");
+  L.push("سأرسل الشعار والصور في هذه المحادثة.");
+  return L.join("\n");
+}
+function waHref(){
+  const num = toLatin(AGENCY.whatsapp).replace(/\D/g,"");
+  return `https://wa.me/${num}?text=${encodeURIComponent(buildMessage())}`;
+}
+
+function reviewHTML(){
+  if (!state.code){
+    const d = new Date(), p = n => String(n).padStart(2,"0");
+    state.code = `REQ-${String(d.getFullYear()).slice(2)}${p(d.getMonth()+1)}${p(d.getDate())}-${Math.floor(100+Math.random()*900)}`;
+    save();
+  }
+  const secs = collect(false);
+  const num = toLatin(AGENCY.whatsapp).replace(/\D/g,"");
+  const ep = !!AGENCY.endpoint;
+  const nFiles = Object.keys(fileStore).reduce((a,k)=>{ const f=findField(k); return a + (f && shown(f) ? fileStore[k].length : 0); }, 0);
+  const waBlock = `<a class="btn ${ep?"ghost":"primary"} wide" id="waBtn" href="${esc(waHref())}" target="_blank" rel="noopener">${ep ? "إرسال الطلب عبر واتساب" : "فتح واتساب وإرسال الطلب"}</a>
+      <button class="btn ghost wide" data-act="copy">نسخ نص الطلب</button>
+      ${num ? `<p class="hint">إذا لم يفتح واتساب، انسخ الطلب وأرسله إلى الرقم: <span class="number">+${esc(num)}</span></p>` : `<p class="hint">إذا لم يفتح واتساب، انسخ الطلب وأرسله إلى الوكالة مباشرة.</p>`}
+      ${ep && nFiles ? `<p class="hint">في هذه الحالة أرسل الشعار والصور في نفس المحادثة.</p>` : ""}
+      <textarea class="fallback" id="fallback" readonly hidden aria-label="نص الطلب"></textarea>`;
+  return `<div class="head">
+      <div class="eyebrow">الخطوة الأخيرة</div>
+      <h1>راجع طلبك ثم أرسله</h1>
+      <p class="lead">تأكد من الإجابات، ويمكنك تعديل أي قسم قبل الإرسال.</p>
+    </div>
+    <article class="sheet" aria-label="ملخص الطلب">
+      <div class="sheet-head"><span>رقم الطلب <span class="code">${esc(state.code)}</span></span><span class="tag">${esc(dateStr())}</span></div>
+      ${secs.map(sec => `<section class="sec">
+        <div class="sec-h"><h3>${esc(sec.step.nav)}</h3><button class="edit" data-goto="${sec.step.id}">تعديل</button></div>
+        ${sec.rows.length ? `<dl>${sec.rows.map(r=>`<dt>${esc(r.ml)}</dt><dd>${esc(r.val)}</dd>`).join("")}</dl>` : `<p class="empty-sec">لم تُملأ بعد.</p>`}
+      </section>`).join("")}
+    </article>
+    <section class="send">
+      <h2>إرسال الطلب</h2>
+      ${ep ? `<p class="hint">يصل طلبك${nFiles ? " مع الملفات" : ""} إلى الوكالة مباشرة، ونتواصل معك على رقم الواتساب الذي أدخلته.</p>
+      <button class="btn primary wide" data-act="submit" id="submitBtn">إرسال الطلب</button>
+      <p class="err" id="submitErr" role="alert" hidden></p>
+      <input class="hp" id="hp" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="send" id="fallbackBox" hidden>${waBlock}</div>`
+      : `<p class="hint">يفتح الزر واتساب برسالة جاهزة فيها كل التفاصيل، اضغط إرسال هناك، ثم أرسل الشعار والصور في نفس المحادثة.</p>${waBlock}`}
+      <button class="linkbtn" data-act="reset">بدء طلب جديد</button>
+    </section>`;
+}
+
+function doneHTML(){
+  const num = toLatin(AGENCY.whatsapp).replace(/\D/g,"");
+  return `<div class="done">
+    <div class="seal" aria-hidden="true"></div>
+    <div class="head">
+      <h1>وصلنا طلبك</h1>
+      <p class="lead">سنراجع التفاصيل ونتواصل معك على رقم الواتساب الذي أدخلته.</p>
+    </div>
+    <div class="sheet"><div class="sheet-head"><span>رقم الطلب <span class="code">${esc(state.code)}</span></span><span class="tag">${esc(dateStr())}</span></div></div>
+    <p class="note">احتفظ برقم الطلب، فهو مرجعنا عند المتابعة.</p>
+    ${num ? `<p class="hint">للاستفسار: <span class="number">+${esc(num)}</span></p>` : ""}
+    <button class="btn ghost" data-act="newreq">تقديم طلب آخر</button>
+  </div>`;
+}
+
+function stepHTML(s){
+  return `<div class="head">
+      <div class="eyebrow">${esc(s.nav)}</div>
+      <h1>${esc(s.title)}</h1>
+      ${s.lead ? `<p class="lead">${esc(s.lead)}</p>` : ""}
+    </div>
+    <div class="fields">${s.fields.filter(shown).map(fieldHTML).join("")}</div>`;
+}
+
+function render(keepScroll){
+  const y = window.scrollY;
+  $("#brandName").textContent = AGENCY.name;
+  if (state.step==="done"){
+    $("#progWrap").hidden = true; $("#bar").parentElement.hidden = true;
+    $("#main").innerHTML = doneHTML(); return;
+  }
+  const vs = visibleSteps();
+  let i = vs.findIndex(s => s.id===state.step);
+  if (i < 0){ state.step = "services"; i = vs.findIndex(s => s.id==="services"); }
+  const s = vs[i];
+  const main = $("#main"), bar = $("#bar");
+  const progWrap = $("#progWrap");
+  if (s.id==="intro"){
+    progWrap.hidden = true;
+    main.innerHTML = introHTML();
+    const saved = loadSaved();
+    const draft = hasDraft(saved) && saved.step !== "intro";
+    bar.innerHTML = draft ? "" : `<button class="btn primary" data-act="next">ابدأ الطلب</button>`;
+    bar.parentElement.hidden = draft;
+  } else {
+    progWrap.hidden = false;
+    bar.parentElement.hidden = false;
+    const total = vs.length - 1;
+    $("#prog").innerHTML = vs.slice(1).map((_,k) => `<i class="${k+1<i?"done":k+1===i?"now":""}"></i>`).join("");
+    $("#stepline").textContent = `الخطوة ${toAr(i)} من ${toAr(total)} · ${s.nav}`;
+    main.innerHTML = s.id==="review" ? reviewHTML() : stepHTML(s);
+    bar.innerHTML = `<button class="btn ghost" data-act="prev">السابق</button>` +
+      (s.id==="review" ? "" : `<button class="btn primary" data-act="next">${vs[i+1] && vs[i+1].id==="review" ? "مراجعة الطلب" : "التالي"}</button>`);
+  }
+  if (keepScroll) window.scrollTo(0, y);
+}
+
+/* ---------- navigation ---------- */
+function validate(s){
+  errors = {};
+  (s.fields||[]).filter(shown).forEach(f => {
+    if (!f.req) return;
+    if (!filled(f, state.data[f.id])){
+      errors[f.id] = f.type==="tel" ? "أدخل رقم واتساب صحيحاً من ١١ رقماً." :
+                     f.type==="cards" ? "اختر خدمة واحدة على الأقل." :
+                     f.type==="check" ? "يلزم الإقرار قبل المتابعة." :
+                     f.type==="list3" ? "اكتب نقطة قوة واحدة على الأقل." :
+                     (f.type==="single"||f.type==="multi") ? "اختر إجابة." : "هذا الحقل مطلوب.";
+    }
+  });
+  return Object.keys(errors).length===0;
+}
+function smooth(){ return window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth"; }
+function go(id){ errors = {}; state.step = id; save(); render(); window.scrollTo({top:0, behavior:"auto"}); }
+function next(){
+  const vs = visibleSteps(); const i = vs.findIndex(s=>s.id===state.step); const s = vs[i];
+  if (s.fields && !validate(s)){
+    render(true);
+    const first = document.querySelector(".invalid");
+    if (first){ first.scrollIntoView({behavior:smooth(), block:"center"}); const inp = first.querySelector("input,textarea,button"); if (inp) setTimeout(()=>inp.focus({preventScroll:true}), 250); }
+    return;
+  }
+  if (vs[i+1]) go(vs[i+1].id);
+}
+function prev(){
+  const vs = visibleSteps(); const i = vs.findIndex(s=>s.id===state.step);
+  if (i>0) go(vs[i-1].id);
+}
+
+let toastT;
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(()=>{ t.hidden = true; }, 2200); }
+
+function findField(id){ for (const s of STEPS) for (const f of (s.fields||[])) if (f.id===id) return f; }
+
+let resetArmed = null;
+document.addEventListener("click", e => {
+  const chip = e.target.closest("[data-chip]");
+  if (chip){
+    const f = findField(chip.dataset.chip), v = chip.dataset.v;
+    if (f.type==="single"){ state.data[f.id] = state.data[f.id]===v ? "" : v; }
+    else {
+      let arr = (state.data[f.id]||[]).slice();
+      arr = arr.includes(v) ? arr.filter(x=>x!==v) : arr.concat(v);
+      if (f.max && arr.length > f.max) arr = arr.slice(arr.length - f.max);
+      state.data[f.id] = arr;
+    }
+    delete errors[f.id]; save(); render(true);
+    const again = document.querySelector(`[data-chip="${f.id}"][data-v="${CSS.escape(v)}"]`); if (again) again.focus({preventScroll:true});
+    return;
+  }
+  const card = e.target.closest("[data-card]");
+  if (card){
+    const id = card.dataset.card, v = card.dataset.v;
+    let arr = (state.data[id]||[]).slice();
+    arr = arr.includes(v) ? arr.filter(x=>x!==v) : arr.concat(v);
+    state.data[id] = arr; delete errors[id]; save(); render(true);
+    const again = document.querySelector(`[data-card="${id}"][data-v="${v}"]`); if (again) again.focus({preventScroll:true});
+    return;
+  }
+  const rm = e.target.closest("[data-rmfile]");
+  if (rm){
+    const list = fileStore[rm.dataset.rmfile] || []; const x = list.splice(+rm.dataset.k, 1)[0];
+    if (x && x.preview) URL.revokeObjectURL(x.preview);
+    render(true); return;
+  }
+  const g = e.target.closest("[data-goto]");
+  if (g){ go(g.dataset.goto); return; }
+  const a = e.target.closest("[data-act]");
+  if (!a) return;
+  const act = a.dataset.act;
+  if (act==="next") next();
+  else if (act==="prev") prev();
+  else if (act==="resume"){ const s = loadSaved(); if (s){ state = s; } render(); window.scrollTo(0,0); }
+  else if (act==="fresh"){ clearFiles(); state = {data:{}, step:"org", code:null}; save(); render(); window.scrollTo(0,0); }
+  else if (act==="submit"){ submitRequest(a); }
+  else if (act==="newreq"){ state = {data:{}, step:"intro", code:null}; render(); window.scrollTo(0,0); }
+  else if (act==="copy"){
+    const msg = buildMessage();
+    const fb = () => { const ta = $("#fallback"); ta.value = msg; ta.hidden = false; ta.focus(); ta.select(); toast("حدّد النص وانسخه يدوياً"); };
+    try{
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(msg).then(()=>toast("تم نسخ الطلب"), fb);
+      } else fb();
+    }catch(err){ fb(); }
+  }
+  else if (act==="reset"){
+    if (resetArmed){ clearTimeout(resetArmed); resetArmed = null; clearFiles(); state = {data:{}, step:"intro", code:null}; errors = {}; save(); render(); window.scrollTo(0,0); toast("بدأ طلب جديد"); }
+    else { a.textContent = "اضغط مرة أخرى لمسح الطلب الحالي"; resetArmed = setTimeout(()=>{ resetArmed = null; a.textContent = "بدء طلب جديد"; }, 4000); }
+  }
+});
+
+document.addEventListener("input", e => {
+  const el = e.target.closest("[data-f]");
+  if (el){
+    const id = el.dataset.f;
+    if (el.dataset.i !== undefined){
+      const arr = (state.data[id] || ["","",""]).slice(); arr[+el.dataset.i] = el.value; state.data[id] = arr;
+    } else state.data[id] = el.value;
+    if (errors[id]){ delete errors[id]; const w = el.closest(".invalid"); if (w){ w.classList.remove("invalid"); const er = w.querySelector(".err"); if (er) er.remove(); } }
+    save();
+  }
+});
+document.addEventListener("change", e => {
+  const fi = e.target.closest("[data-file]");
+  if (fi){ const files = Array.from(fi.files || []); if (files.length) addFiles(findField(fi.dataset.file), files); return; }
+  const c = e.target.closest("[data-check]");
+  if (c){ state.data[c.dataset.check] = c.checked; delete errors[c.dataset.check]; save(); render(true); const again = document.getElementById(c.id); if (again) again.focus({preventScroll:true}); }
+});
+
+/* ---------- boot ---------- */
+function start(snap){
+  try{ localStorage.setItem(KEY+"_t","1"); localStorage.removeItem(KEY+"_t"); storageOK = true; }catch(e){ storageOK = false; }
+  if (snap && snap.data){ state = snap; }
+  else { state = {data:{}, step:"intro", code:null}; const s = loadSaved(); if (s && s.data && s.step!=="intro"){ /* intro offers resume */ } }
+  render();
+}
+window.claude?.hot?.snapshot?.(() => state);
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? null);
+</script>
+</body>
+</html>
