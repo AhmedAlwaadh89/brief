@@ -10,6 +10,7 @@
 
 const CONFIG = {
   NOTIFY_EMAIL: '',          // اتركه فارغاً ليصل الإشعار إلى بريد حسابك
+  CC_EMAILS: '',             // بريد إضافي يصله الإشعار، وللأكثر من بريد افصل بفاصلة
   SHEET_NAME: 'الطلبات',
   FOLDER_NAME: 'طلبات العملاء',
   MAX_FILE_MB: 10
@@ -162,13 +163,15 @@ function notify_(p, code, folderUrl, ss, sh, row) {
       (folderUrl ? btn(folderUrl, 'ملفات العميل', '#E9EEED', '#13232A') : '') +
     '</div>' + sections + '</div>';
 
-  MailApp.sendEmail({
+  const mail = {
     to: to,
     subject: 'طلب جديد: ' + (s.company || '') + (s.services ? ' — ' + s.services : ''),
     htmlBody: html,
     body: String(p.message || ''),
     name: 'استمارة العملاء'
-  });
+  };
+  if (CONFIG.CC_EMAILS) mail.cc = CONFIG.CC_EMAILS;
+  MailApp.sendEmail(mail);
 }
 
 /* ---------- أدوات ---------- */
