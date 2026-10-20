@@ -192,9 +192,9 @@ dd{margin:0;font-size:15px;min-width:0;overflow-wrap:anywhere;white-space:pre-li
 <script>
 /* ===== إعدادات الوكالة ===== */
 const AGENCY = {
-  name: "اسم الوكالة",
+  name: "",     // اسم الوكالة
   whatsapp: "", // رقم واتساب الوكالة بالصيغة الدولية بدون + ، مثال: 9647701234567
-  endpoint: ""  // رابط Google Apps Script بعد النشر (ينتهي بـ /exec)
+  endpoint: "https://script.google.com/macros/s/AKfycbwvO9pyFlwFIRcgcEvhE-ldF2X10qh_FTef7rEcFeGTmPsbJFlM8Qhlt7QG-5kxsT7gfw/exec"
 };
 /* =========================== */
 
@@ -509,7 +509,7 @@ function dateStr(){ try{ return new Intl.DateTimeFormat("ar-IQ",{dateStyle:"long
 
 function buildMessage(){
   const L = [];
-  L.push(`*طلب خدمة جديد${AGENCY.name && AGENCY.name!=="اسم الوكالة" ? " — "+AGENCY.name : ""}*`);
+  L.push(`*طلب خدمة جديد${AGENCY.name ? " — "+AGENCY.name : ""}*`);
   L.push(`رقم الطلب: ${state.code}`);
   L.push(`التاريخ: ${dateStr()}`);
   collect(true).forEach(sec => {
@@ -592,7 +592,8 @@ function stepHTML(s){
 
 function render(keepScroll){
   const y = window.scrollY;
-  $("#brandName").textContent = AGENCY.name;
+  $("#brandName").textContent = AGENCY.name || "استمارة طلب خدمة";
+  $(".tag").hidden = !AGENCY.name;
   if (state.step==="done"){
     $("#progWrap").hidden = true; $("#bar").parentElement.hidden = true;
     $("#main").innerHTML = doneHTML(); return;
